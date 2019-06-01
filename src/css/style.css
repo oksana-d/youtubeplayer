@@ -159,3 +159,16 @@ label{
     opacity: 0.8;
 }
 
+.error {
+    color: #ffff33;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.wrongpassword .error{
+    display: none;
+}
+
+.form-control.error{
+    border: 1px solid #ffff33;
+}
