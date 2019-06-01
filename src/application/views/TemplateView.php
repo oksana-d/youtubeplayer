@@ -18,6 +18,57 @@
     <script src="../src/js/main.js" type="text/javascript"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-md sticky-top">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand"><i class="fab fa-youtube"></i> YouTube Player</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <?php if(stripos($_SERVER['REQUEST_URI'],'auth') !== false): ?>
+                    <?php if (isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true'): ?>
+                        <li class="nav-item">
+                            <a href="/liked" class="nav-link">Понравившиеся видео</a>
+                        </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a href="/auth" class="nav-link active">Вход</a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if(stripos($_SERVER['REQUEST_URI'],'auth') === false && stripos($_SERVER['REQUEST_URI'],'liked') === false ): ?>
+                    <?php if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true'): ?>
+                        <li class="nav-item">
+                            <a href="/liked" class="nav-link">Понравившиеся видео</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if(!isset($_SESSION['isAuth'])): ?>
+                        <li class="nav-item">
+                            <a href="/auth" class="nav-link">Вход</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true'): ?>
+                        <li class="nav-item">
+                            <a href="/auth/logout" class="nav-link">Выход</a>
+                        </li>
+                    <? endif; ?>
+                <? endif; ?>
+
+                <?php if(stripos($_SERVER['REQUEST_URI'],'liked') !== false): ?>
+                    <li class="nav-item">
+                        <a href="/liked" class="nav-link active">Понравившиеся видео</a>
+                    </li>
+                    <?php if (isset($_SESSION['isAuth'])): ?>
+                        <li class="nav-item">
+                            <a href="/auth/logout" class="nav-link">Выход</a>
+                        </li>
+                    <? endif; ?>
+                <? endif;?>
+            </ul>
+        </div>
+    </div>
+</nav>
     <?php include 'src/application/views/'.$content_view; ?>
 </body>
 </html>

@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather&display=swap');
+
+body,html {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../src/img/backgraund_body.jpg");
+    background-size: cover;
+}
+
+.navbar-brand:hover, .nav-link:hover{
+    color: #89c4f4;
+}
+
+.navbar-brand{
+    color: #dadfe1;
+    font-family: "Merriweather";
+    font-weight: bold;
+}
+
+.nav-link{
+    color: #dadfe1;
+    text-transform: uppercase;
+}
+
+.fa-bars:before{
+    color: #dadfe1;
+}
+
+a.navbar-brand{
+    color: white;
+}
+
+a.nav-link.active{
+    color: #ffff33;
+}
+
+h3{
+    color: #ffffff;
+}
+
+.container{
+    padding: 30px;
+}
+
+.container input{
+    border-radius: 20px;
+}
+
+.container input[type="text"]{
+    font-family: Merriweather;
+}
+
+.form-inline .btn{
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+ul.nav.nav-tabs{
+    border-bottom: none;
+    padding-bottom: 10px;
+}
+
+ul.nav.nav-tabs li{
+    margin: 0 auto 10px auto;
+}
+
+ul.nav.nav-tabs li a{
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+ul.nav.nav-tabs li a:hover{ background: transparent; }
+ul.nav.nav-tabs li a.active{
+    text-decoration: none;
+    border-bottom: 2px solid #ffff33;
+    color: #fff;
+}
+
+ul.nav.nav-tabs li a.active a:focus,
+ul.nav.nav-tabs li a.active a:hover{
+    opacity: 0.5;
+}
