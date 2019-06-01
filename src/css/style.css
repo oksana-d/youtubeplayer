@@ -169,6 +169,10 @@ label{
     display: none;
 }
 
+.registrationerror .error{
+    display: none;
+}
+
 .form-control.error{
     border: 1px solid #ffff33;
 }

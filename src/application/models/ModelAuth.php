@@ -30,4 +30,13 @@ class ModelAuth extends Model
 
         return $result;
     }
+
+    public function signUp($firstname, $surname, $email,$password)
+    {
+        $conn = DB::connect();
+        $query = "INSERT INTO `user` (firstname,lastname,email,password) VALUES('$firstname','$surname','$email','$password')";
+        $result = $conn->query($query);
+
+        return $result;
+    }
 }
