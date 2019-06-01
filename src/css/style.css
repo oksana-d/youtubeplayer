@@ -86,3 +86,34 @@ ul.nav.nav-tabs li a.active a:focus,
 ul.nav.nav-tabs li a.active a:hover{
     opacity: 0.5;
 }
+
+label{
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-horizontal .form-control{
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 20px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease 0s;
+}
+
+.form-horizontal .btn{
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin: 20px 0 30px 0;
+}
