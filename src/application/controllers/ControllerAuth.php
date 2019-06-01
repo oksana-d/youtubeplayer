@@ -44,4 +44,14 @@ class ControllerAuth extends Controller
             }
         }
     }
+
+    public function logoutAction(){
+        session_start();
+        if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true'){
+            session_destroy();
+            $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
+            header('Location: '.$host);
+            exit;
+        }
+    }
 }
