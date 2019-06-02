@@ -17,42 +17,16 @@ class ControllerMain extends Controller
     public function searchAction()
     {
         if($_POST){
+            session_start();
             $this->model = new ModelMain();
             if($this->model->checkExistsQuery($_POST['searchInput']) == NULL) {//записываем результат в бд, если такого запроса нет в бд
-                if(($idPage = $this->model->getPage(1)) != NULL) {//если nextPageToken, prevPageToken первой страницы есть в бд
-                    $video = new YouTubeVideo();
-                    $dataBySearch = $video->search($_POST['searchInput']);
-                    $videosDate   = $this->getDataVideo($dataBySearch->getItems());
-                    if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
-                        if (isset($_COOKIE['query'])) {
-                            unset($_COOKIE['query']);
-                        }
-                        setcookie("query", serialize($this->model->getQuery($idQuery)), 0, '/');
-                        if (isset($_COOKIE['page'])) {
-                            unset($_COOKIE['page']);
-                        }
-                        setcookie("page", serialize($idPage), 0, '/');
-                        $this->model->saveVideoData($idQuery, $idPage['idPage'], $videosDate);
-                    }
+                if(($idPage = $this->model->getPage(1)) != NULL) {//если данные первой страницы есть в бд
+                    $this->saveAllData($idPage);
+                    exit();
                 }
-                else{//если nextPageToken, prevPageToken первой страницы нет в бд
-                    $video = new YouTubeVideo();
-                    $dataBySearch = $video->search($_POST['searchInput']);
-                    $videosDate   = $this->getDataVideo($dataBySearch->getItems());
-                    if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
-                        if (isset($_COOKIE['query'])) {
-                            unset($_COOKIE['query']);
-                        }
-                        setcookie("query", serialize($this->model->getQuery($idQuery)), 0, '/');
-                        if ($idPage = $this->model->savePageData($dataBySearch->toSimpleObject()->nextPageToken,
-                            $dataBySearch->toSimpleObject()->prevPageToken)) {
-                            if (isset($_COOKIE['page'])) {
-                                unset($_COOKIE['page']);
-                            }
-                            setcookie("page", serialize($this->model->getPage($idPage)), 0, '/');
-                            $this->model->saveVideoData($idQuery, $idPage, $videosDate);
-                        }
-                    }
+                else{//если данных первой страницы нет в бд
+                    $this->saveData();
+                    exit();
                 }
             }
             else{//если такой запрос уже есть в бд, то выводим первую страницу из бд
@@ -66,7 +40,9 @@ class ControllerMain extends Controller
                 }
                 setcookie("query", serialize($this->model->getQuery($videosDate[0]['query'])) ,0, '/');
             }
-            $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
+            if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+                $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
+            } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
         }
     }
 
@@ -86,7 +62,9 @@ class ControllerMain extends Controller
                     'nextPageToken' => $dataBySearch->toSimpleObject()->nextPageToken,
                     'prevPageToken' => $dataBySearch->toSimpleObject()->prevPageToken
                 ]), 0, '/');
-            $this->view->ajaxGenerate('VideoPage.php', ['videos' => $videosDate]);
+            if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+                $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
+            } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
         }
     }
 
@@ -106,8 +84,53 @@ class ControllerMain extends Controller
                 'nextPageToken' => $dataBySearch->toSimpleObject()->nextPageToken,
                 'prevPageToken' => $dataBySearch->toSimpleObject()->prevPageToken
             ]), 0, '/');
-            $this->view->ajaxGenerate('VideoPage.php', ['videos' => $videosDate]);
+            if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+                $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
+            } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
         }
+    }
+
+    public function saveAllData($idPage){
+        $video = new YouTubeVideo();
+        $dataBySearch = $video->search($_POST['searchInput']);
+        $videosDate   = $this->getDataVideo($dataBySearch->getItems());
+        if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
+            if (isset($_COOKIE['query'])) {
+                unset($_COOKIE['query']);
+            }
+            setcookie("query", serialize($this->model->getQuery($idQuery)), 0, '/');
+            if (isset($_COOKIE['page'])) {
+                unset($_COOKIE['page']);
+            }
+            setcookie("page", serialize($idPage), 0, '/');
+            $this->model->saveVideoData($idQuery, $idPage['idPage'], $videosDate);
+        }
+        if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+            $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
+        } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
+    }
+
+    public function saveData(){
+        $video = new YouTubeVideo();
+        $dataBySearch = $video->search($_POST['searchInput']);
+        $videosDate   = $this->getDataVideo($dataBySearch->getItems());
+        if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
+            if (isset($_COOKIE['query'])) {
+                unset($_COOKIE['query']);
+            }
+            setcookie("query", serialize($this->model->getQuery($idQuery)), 0, '/');
+            if ($idPage = $this->model->savePageData($dataBySearch->toSimpleObject()->nextPageToken,
+                $dataBySearch->toSimpleObject()->prevPageToken)) {
+                if (isset($_COOKIE['page'])) {
+                    unset($_COOKIE['page']);
+                }
+                setcookie("page", serialize($this->model->getPage($idPage)), 0, '/');
+                $this->model->saveVideoData($idQuery, $idPage, $videosDate);
+            }
+        }
+        if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+            $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
+        } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
     }
 
     public function getDataVideo(array $videos)
@@ -115,7 +138,7 @@ class ControllerMain extends Controller
         $dataset = [];
         array_walk($videos, function ($value) use (&$dataset){
             $dataset[] = [
-                'id' => json_decode((json_encode($value->toSimpleObject()->id)),true)['videoId'],
+                'idVideo' => json_decode((json_encode($value->toSimpleObject()->id)),true)['videoId'],
                 'title' => $value->toSimpleObject()->snippet->title,
                 'preview' =>  $value->toSimpleObject()->snippet->thumbnails->medium->url,
                 'publishedAt' => $this->timeFormatting($value->toSimpleObject()->snippet->publishedAt),
