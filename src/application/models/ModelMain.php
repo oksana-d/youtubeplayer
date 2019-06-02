@@ -49,13 +49,17 @@ class ModelMain extends Model
     {
         $conn = DB::connect();
         foreach ($videoData as $data) {
-            $execute_query = $conn->query("
+            if (self::getVideo($data['idVideo']) == NULL) {
+                $execute_query = $conn->query("
               INSERT INTO video (idVideo, title, preview, publishedAt)
               VALUES (?, ?, ?, ?)
-            ", [$data['id'], $data['title'], $data['preview'], $data['publishedAt']]);
-            if ($execute_query) {
-                self::saveVideoQueryData($idQuery, $data['id'], $idPage);
-            } else return false;
+            ", [$data['idVideo'], $data['title'], $data['preview'], $data['publishedAt']]);
+                if ($execute_query) {
+                    self::saveVideoQueryData($idQuery, $data['idVideo'], $idPage);
+                } else {
+                    return false;
+                }
+            } else self::saveVideoQueryData($idQuery, $data['idVideo'], $idPage);
         }
     }
 
@@ -71,6 +75,12 @@ class ModelMain extends Model
             return false;
         }
 
+    }
+
+    public function getVideo($idVideo){
+        $conn = DB::connect();
+        $execute_query = $conn->query("select * from video where idVideo=?", [$idVideo])[0];
+        return $execute_query;
     }
 
     public function getPage($idPage){
