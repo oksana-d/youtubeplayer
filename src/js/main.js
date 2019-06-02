@@ -112,4 +112,26 @@ $(document).ready(function () {
             });
         }
     });
+
+    $('#searchForm').validate({
+        rules: {
+            searchInput: {
+                required: true
+            }
+        },
+        messages:{
+            searchInput: ''
+        },
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                url: '/main/search',
+                type: 'post',
+                enctype: 'multipart/form-data',
+                success: function (data) {
+                    $('#videoPage').html(data);
+                }
+            });
+        }
+    });
+
 });
