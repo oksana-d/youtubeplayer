@@ -15,5 +15,8 @@
     "config": {
         "disable-tls": true,
         "secure-http": false
+    },
+    "require": {
+        "google/apiclient": "v2.2.2"
     }
 }
