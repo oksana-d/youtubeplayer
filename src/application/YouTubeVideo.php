@@ -21,7 +21,7 @@ class YouTubeVideo
 
     public function search(string $query )//Поиск видео по фразе
     {
-        $maxResults=12;
+        $maxResults=48;
         $lang='ru';
 
         $response = $this->youtube->search->listSearch('snippet',
@@ -36,7 +36,7 @@ class YouTubeVideo
     }
 
     public  function nextPage($query ,$nextPageToken){//следующая страница результата поиска
-        $maxResults=12;
+        $maxResults=48;
         $lang='ru';
 
         $response = $this->youtube->search->listSearch('snippet',
