@@ -140,7 +140,18 @@ $(document).ready(function () {
             enctype: 'multipart/form-data',
             success: function (data) {
                 $('#videoPage').html(data);
-                $('html').animate({scrollTop: 0}, 1000);
+                $('html').animate({scrollTop: 0}, 0);
+            }
+        });
+    });
+
+    $('body').on('click', '#prevButton', function () {
+        $.ajax({
+            url: '/main/getPrevPage',
+            enctype: 'multipart/form-data',
+            success: function (data) {
+                $('#videoPage').html(data);
+                $('html').animate({scrollTop: 0}, 0);
             }
         });
     });

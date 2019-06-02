@@ -90,6 +90,26 @@ class ControllerMain extends Controller
         }
     }
 
+    public function getPrevPageAction()
+    {
+        if(unserialize($_COOKIE['page'])['prevPageToken'] != NULL) {
+            $page         = unserialize($_COOKIE['page'])['idPage'] - 1;//текущий номер страницы
+            $video        = new YouTubeVideo();
+            $dataBySearch = $video->nextPage(unserialize($_COOKIE['query'])['queryText'],
+                unserialize($_COOKIE['page'])['prevPageToken']);
+            $videosDate   = $this->getDataVideo($dataBySearch->getItems());
+            if (isset($_COOKIE['page'])) {
+                unset($_COOKIE['page']);
+            }
+            setcookie("page", serialize([
+                'idPage'        => $page,
+                'nextPageToken' => $dataBySearch->toSimpleObject()->nextPageToken,
+                'prevPageToken' => $dataBySearch->toSimpleObject()->prevPageToken
+            ]), 0, '/');
+            $this->view->ajaxGenerate('VideoPage.php', ['videos' => $videosDate]);
+        }
+    }
+
     public function getDataVideo(array $videos)
     {
         $dataset = [];
