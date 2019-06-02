@@ -90,6 +90,10 @@ class ControllerMain extends Controller
         }
     }
 
+    public function addlikeAction(){
+
+    }
+
     public function saveAllData($idPage){
         $video = new YouTubeVideo();
         $dataBySearch = $video->search($_POST['searchInput']);

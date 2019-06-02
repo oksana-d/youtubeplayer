@@ -155,4 +155,15 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('body').on('click', '#likebutton', function () {
+        $.ajax({
+            url: '/main/addlike',
+            enctype: 'multipart/form-data',
+            success: function (data) {
+               // console.log('dsds');
+
+            }
+        });
+    })
 });

@@ -206,6 +206,26 @@ label{
     padding: 0px;
 }
 
+div.image{
+    position: relative;
+}
+
+i.fas.fa-heart{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #ffff33;
+    font-size: 40px;
+
+}
+
+i.fas.fa-heart:hover{
+    cursor: pointer;
+    -webkit-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
 .container.video img{
     width: 100%;
     height: auto;
@@ -216,6 +236,17 @@ label{
 }
 
 .container.button .btn{
+    padding: 10px 20px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin: 20px 0 30px 0;
+}
+
+.container.button .btn:hover{
     padding: 10px 20px;
     border: none;
     font-size: 14px;
