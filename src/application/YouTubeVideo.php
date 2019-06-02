@@ -35,7 +35,7 @@ class YouTubeVideo
         return $response;
     }
 
-    public  function nextPage($query ,$nextPageToken){
+    public  function nextPage($query ,$nextPageToken){//следующая страница результата поиска
         $maxResults=12;
         $lang='ru';
 

@@ -134,4 +134,14 @@ $(document).ready(function () {
         }
     });
 
+    $('body').on('click', '#nextButton', function () {
+        $.ajax({
+            url: '/main/getNextPage',
+            enctype: 'multipart/form-data',
+            success: function (data) {
+                $('#videoPage').html(data);
+                $('html').animate({scrollTop: 0}, 1000);
+            }
+        });
+    });
 });
