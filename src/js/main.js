@@ -128,6 +128,10 @@ $(document).ready(function () {
                 type: 'post',
                 enctype: 'multipart/form-data',
                 success: function (data) {
+                    if(data == 'По вашему запросу ничего не найдено'){
+                        $('#videoPage').css('text-align','center');
+                        $('#videoPage').css('color','white');
+                    }
                     $('#videoPage').html(data);
                     var page = Cookies.get('page');
                     if(~page.indexOf('N',page.indexOf('prevPageToken'))){
