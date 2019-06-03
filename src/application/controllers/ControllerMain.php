@@ -100,6 +100,10 @@ class ControllerMain extends Controller
         $video = new YouTubeVideo();
         $dataBySearch = $video->search($_POST['searchInput']);
         $videosDate   = $this->getDataVideo($dataBySearch->getItems());
+        if(count($videosDate) == 0){
+            echo('По вашему запросу ничего не найдено');
+            exit;
+        }
         if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
             if (isset($_COOKIE['query'])) {
                 unset($_COOKIE['query']);
@@ -120,6 +124,10 @@ class ControllerMain extends Controller
         $video = new YouTubeVideo();
         $dataBySearch = $video->search($_POST['searchInput']);
         $videosDate   = $this->getDataVideo($dataBySearch->getItems());
+        if(count($videosDate) == 0){
+            echo('По вашему запросу ничего не найдено');
+            exit;
+        }
         if ($idQuery = $this->model->saveQueryData($_POST['searchInput'])) {
             if (isset($_COOKIE['query'])) {
                 unset($_COOKIE['query']);

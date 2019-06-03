@@ -259,3 +259,8 @@ i.far.fa-thumbs-up:hover{
     text-transform: uppercase;
     margin: 20px 0 30px 0;
 }
+
+#videoPage{
+    text-align: center;
+    color: white;
+}
