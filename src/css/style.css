@@ -210,7 +210,7 @@ div.image{
     position: relative;
 }
 
-i.fas.fa-heart{
+i.far.fa-thumbs-up{
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -219,7 +219,7 @@ i.fas.fa-heart{
 
 }
 
-i.fas.fa-heart:hover{
+i.far.fa-thumbs-up:hover{
     cursor: hand;
     cursor: pointer;
     -webkit-transform: scale(1.3);

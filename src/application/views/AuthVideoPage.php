@@ -6,7 +6,7 @@
                     <div class="container video-data">
                         <div class="image">
                         <a data-fancybox href="https://www.youtube.com/embed/<?=$video["idVideo"]?>"><img src="<?=$video['preview']?>" alt="<?=$video["title"]?>"/></a>
-                        <a id="likebutton"><i class="fas fa-heart"></i></a>
+                        <a id="likebutton"><i class="far fa-thumbs-up"></i></a>
                         </div>
                         <p class="title-video"><?=$video["title"]?></p>
                         <p> <small class="publishedAt-video">Опубликовано: <?=$video["publishedAt"]?></small></p>

@@ -21,11 +21,11 @@ class ControllerMain extends Controller
             $this->model = new ModelMain();
             if($this->model->checkExistsQuery($_POST['searchInput']) == NULL) {//записываем результат в бд, если такого запроса нет в бд
                 if(($idPage = $this->model->getPage(1)) != NULL) {//если данные первой страницы есть в бд
-                    $this->saveAllData($idPage);
+                    $this->saveData($idPage);
                     exit();
                 }
                 else{//если данных первой страницы нет в бд
-                    $this->saveData();
+                    $this->saveAllData();
                     exit();
                 }
             }
@@ -48,6 +48,7 @@ class ControllerMain extends Controller
 
     public function getNextPageAction()
     {
+        session_start();
         if(unserialize($_COOKIE['page'])['nextPageToken'] != NULL) {
             $page         = unserialize($_COOKIE['page'])['idPage'] + 1;//текущий номер страницы
             $video        = new YouTubeVideo();
@@ -70,6 +71,7 @@ class ControllerMain extends Controller
 
     public function getPrevPageAction()
     {
+        session_start();
         if(unserialize($_COOKIE['page'])['prevPageToken'] != NULL) {
             $page         = unserialize($_COOKIE['page'])['idPage'] - 1;//текущий номер страницы
             $video        = new YouTubeVideo();
@@ -94,7 +96,7 @@ class ControllerMain extends Controller
 
     }
 
-    public function saveAllData($idPage){
+    public function saveData($idPage){
         $video = new YouTubeVideo();
         $dataBySearch = $video->search($_POST['searchInput']);
         $videosDate   = $this->getDataVideo($dataBySearch->getItems());
@@ -114,7 +116,7 @@ class ControllerMain extends Controller
         } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
     }
 
-    public function saveData(){
+    public function saveAllData(){
         $video = new YouTubeVideo();
         $dataBySearch = $video->search($_POST['searchInput']);
         $videosDate   = $this->getDataVideo($dataBySearch->getItems());
