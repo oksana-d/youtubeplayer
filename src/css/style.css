@@ -220,6 +220,7 @@ i.fas.fa-heart{
 }
 
 i.fas.fa-heart:hover{
+    cursor: hand;
     cursor: pointer;
     -webkit-transform: scale(1.3);
     -ms-transform: scale(1.3);
@@ -247,6 +248,8 @@ i.fas.fa-heart:hover{
 }
 
 .container.button .btn:hover{
+    cursor: hand;
+    cursor: pointer;
     padding: 10px 20px;
     border: none;
     font-size: 14px;
