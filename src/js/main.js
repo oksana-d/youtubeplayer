@@ -132,6 +132,10 @@ $(document).ready(function () {
                         $('#videoPage').css('text-align','center');
                         $('#videoPage').css('color','white');
                     }
+                    else{
+                        $('#videoPage').css('text-align','left');
+                        $('#videoPage').css('color','black');
+                    }
                     $('#videoPage').html(data);
                     var page = Cookies.get('page');
                     if(~page.indexOf('N',page.indexOf('prevPageToken'))){
