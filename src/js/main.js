@@ -129,6 +129,11 @@ $(document).ready(function () {
                 enctype: 'multipart/form-data',
                 success: function (data) {
                     $('#videoPage').html(data);
+                    var page = Cookies.get('page');
+                    if(~page.indexOf('N',page.indexOf('prevPageToken'))){
+                        console.log('jhg');
+                        $('.container.button #prevButton').css('display','none');
+                    }
                 }
             });
         }
@@ -141,6 +146,11 @@ $(document).ready(function () {
             success: function (data) {
                 $('#videoPage').html(data);
                 $('html').animate({scrollTop: 0}, 0);
+                var page = Cookies.get('page');
+                if(~page.indexOf('N',page.indexOf('nextPageToken')) && page.indexOf('N',page.indexOf('prevPageToken'))){
+                    console.log('jhg');
+                    $('.container.button #nextButton').css('display','none');
+                }
             }
         });
     });
@@ -152,6 +162,11 @@ $(document).ready(function () {
             success: function (data) {
                 $('#videoPage').html(data);
                 $('html').animate({scrollTop: 0}, 0);
+                var page = Cookies.get('page');
+                if(~page.indexOf('N',page.indexOf('prevPageToken'))){
+                    console.log('jhg');
+                    $('.container.button #prevButton').css('display','none');
+                }
             }
         });
     });
