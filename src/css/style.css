@@ -210,6 +210,13 @@ div.image{
     position: relative;
 }
 
+div.image:hover{
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
 i.far.fa-thumbs-up{
     position: absolute;
     right: 10px;

@@ -123,13 +123,13 @@ class ModelMain extends Model
 
     public function getLike($idUser, $idVideo){
         $conn = DB::connect();
-        $execute_query = $conn->query("select `idLike` from `like` where `idUser`=? and `idVideo`=?;", [$idUser, $idVideo]);
+        $execute_query = $conn->query("select `idLike` from `like` where `idUser`=? and `idVideo`=?", [$idUser, $idVideo]);
         return $execute_query;
     }
 
     public function removeLike($idUser, $idVideo){
         $conn = DB::connect();
-        $execute_query = $conn->query("delete from `like` where `idUser`=? and `idVideo`=?;", [$idUser, $idVideo]);
+        $execute_query = $conn->query("delete from `like` where `idUser`=? and `idVideo`=?", [$idUser, $idVideo]);
         return $execute_query;
     }
 }

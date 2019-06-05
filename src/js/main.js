@@ -191,4 +191,16 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('body').on('click', '#removelikebutton', function () {
+        var data = $(this).data();
+        $.ajax({
+            url: '/liked/remove',
+            type: 'post',
+            data: data,
+            success: function (data) {
+                $('#videoPage').html(data);
+            }
+        });
+    });
 });
