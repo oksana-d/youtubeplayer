@@ -139,7 +139,6 @@ $(document).ready(function () {
                     $('#videoPage').html(data);
                     var page = Cookies.get('page');
                     if(~page.indexOf('N',page.indexOf('prevPageToken'))){
-                        console.log('jhg');
                         $('.container.button #prevButton').css('display','none');
                     }
                 }
@@ -156,7 +155,6 @@ $(document).ready(function () {
                 $('html').animate({scrollTop: 0}, 0);
                 var page = Cookies.get('page');
                 if(~page.indexOf('N',page.indexOf('nextPageToken')) && page.indexOf('N',page.indexOf('prevPageToken'))){
-                    console.log('jhg');
                     $('.container.button #nextButton').css('display','none');
                 }
             }
@@ -172,7 +170,6 @@ $(document).ready(function () {
                 $('html').animate({scrollTop: 0}, 0);
                 var page = Cookies.get('page');
                 if(~page.indexOf('N',page.indexOf('prevPageToken'))){
-                    console.log('jhg');
                     $('.container.button #prevButton').css('display','none');
                 }
             }
@@ -180,13 +177,18 @@ $(document).ready(function () {
     });
 
     $('body').on('click', '#likebutton', function () {
+        var data = $(this).data();
+        var $class = $(this).find('i').attr('class');
+        if($class == 'far fa-thumbs-up'){
+            $($(this)).find('i').removeClass('far fa-thumbs-up').addClass('fas fa-thumbs-up');
+        } else  $($(this)).find('i').removeClass('fas fa-thumbs-up').addClass('far fa-thumbs-up');
         $.ajax({
-            url: '/main/addlike',
-            enctype: 'multipart/form-data',
+            url: '/main/like',
+            type: 'post',
+            data: data,
             success: function (data) {
-               // console.log('dsds');
-
+                console.log(data);
             }
         });
-    })
+    });
 });

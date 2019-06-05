@@ -77,6 +77,18 @@ class ModelMain extends Model
 
     }
 
+    public function saveVideo($data)
+    {
+        $conn = DB::connect();
+        $execute_query = $conn->query("
+              INSERT INTO video (idVideo, title, preview, publishedAt)
+              VALUES (?, ?, ?, ?)
+            ", [$data['id'], $data['title'], $data['preview'], $data['publishedat']]);
+        if($execute_query){
+            return true;
+        } else return false;
+    }
+
     public function getVideo($idVideo){
         $conn = DB::connect();
         $execute_query = $conn->query("select * from video where idVideo=?", [$idVideo])[0];
@@ -92,6 +104,32 @@ class ModelMain extends Model
     public function getQuery($idQuery){
         $conn = DB::connect();
         $execute_query = $conn->query("select * from query where idQuery=?", [$idQuery])[0];
+        return $execute_query;
+    }
+
+    public function getIdUser($email){
+        $conn = DB::connect();
+        $execute_query = $conn->query("select idUser from user where email=?", [$email])[0];
+        return $execute_query;
+    }
+
+    public function putLike($idUser, $idVideo){
+        $conn = DB::connect();
+        $execute_query = $conn->query("
+            INSERT INTO `like` (`idUser`, `idVideo`)
+            VALUES (?, ?)", [$idUser, $idVideo]);
+        return $execute_query;
+    }
+
+    public function getLike($idUser, $idVideo){
+        $conn = DB::connect();
+        $execute_query = $conn->query("select `idLike` from `like` where `idUser`=? and `idVideo`=?;", [$idUser, $idVideo]);
+        return $execute_query;
+    }
+
+    public function removeLike($idUser, $idVideo){
+        $conn = DB::connect();
+        $execute_query = $conn->query("delete from `like` where `idUser`=? and `idVideo`=?;", [$idUser, $idVideo]);
         return $execute_query;
     }
 }

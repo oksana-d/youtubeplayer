@@ -18,17 +18,17 @@ USE `youtube`;
 
 -- Дамп структуры для таблица youtube.like
 CREATE TABLE IF NOT EXISTS `like` (
-  `idLike` int(11) NOT NULL AUTO_INCREMENT,
-  `user` int(11) unsigned NOT NULL,
-  `video` varchar(50) NOT NULL,
+  `idLike` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) unsigned NOT NULL,
+  `idVideo` varchar(50) NOT NULL,
   PRIMARY KEY (`idLike`),
-  KEY `user` (`user`),
-  KEY `idVideo` (`video`),
-  CONSTRAINT `idVideo` FOREIGN KEY (`video`) REFERENCES `video` (`idVideo`),
-  CONSTRAINT `user` FOREIGN KEY (`user`) REFERENCES `user` (`idUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `user` (`idUser`),
+  KEY `idVideo` (`idVideo`),
+  CONSTRAINT `idUser` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`),
+  CONSTRAINT `idVideo` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.like: ~0 rows (приблизительно)
+-- Дамп данных таблицы youtube.like: ~18 rows (приблизительно)
 /*!40000 ALTER TABLE `like` DISABLE KEYS */;
 /*!40000 ALTER TABLE `like` ENABLE KEYS */;
 
@@ -40,8 +40,10 @@ CREATE TABLE IF NOT EXISTS `page` (
   PRIMARY KEY (`idPage`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.page: ~0 rows (приблизительно)
+-- Дамп данных таблицы youtube.page: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
+INSERT INTO `page` (`idPage`, `nextPageToken`, `prevPageToken`) VALUES
+	(1, 'CDAQAA', NULL);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 
 -- Дамп структуры для таблица youtube.query
@@ -52,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `query` (
   PRIMARY KEY (`idQuery`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.query: ~0 rows (приблизительно)
+-- Дамп данных таблицы youtube.query: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `query` DISABLE KEYS */;
 /*!40000 ALTER TABLE `query` ENABLE KEYS */;
 
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.user: ~1 rows (приблизительно)
+-- Дамп данных таблицы youtube.user: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`idUser`, `firstname`, `lastname`, `email`, `password`) VALUES
 	(1, 'Оксана', 'Егорова', 'oksana.yegorova99@gmail.com', 'oksana19');
@@ -82,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   PRIMARY KEY (`idVideo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.video: ~12 rows (приблизительно)
+-- Дамп данных таблицы youtube.video: ~54 rows (приблизительно)
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 
@@ -99,9 +101,9 @@ CREATE TABLE IF NOT EXISTS `videoQuery` (
   CONSTRAINT `page` FOREIGN KEY (`page`) REFERENCES `page` (`idPage`),
   CONSTRAINT `query` FOREIGN KEY (`query`) REFERENCES `query` (`idQuery`),
   CONSTRAINT `video` FOREIGN KEY (`video`) REFERENCES `video` (`idVideo`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.videoQuery: ~12 rows (приблизительно)
+-- Дамп данных таблицы youtube.videoQuery: ~48 rows (приблизительно)
 /*!40000 ALTER TABLE `videoQuery` DISABLE KEYS */;
 /*!40000 ALTER TABLE `videoQuery` ENABLE KEYS */;
 
