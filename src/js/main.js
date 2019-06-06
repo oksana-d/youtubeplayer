@@ -203,4 +203,49 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('body').on('click', '#nextPage', function () {
+        $.ajax({
+            url: '/liked/getNextPage',
+            enctype: 'multipart/form-data',
+            success: function (data) {
+                if(data == 'Вы еще ничего не добавили в список понравившихся'){
+                    $('#videoPage').css('text-align','center');
+                    $('#videoPage').css('color','white');
+                }
+                else{
+                    $('#videoPage').css('text-align','left');
+                    $('#videoPage').css('color','black');
+                }
+                $('#videoPage').html(data);
+                $('html').animate({scrollTop: 0}, 0);
+                removeButtonPage();
+            }
+        });
+    });
+
+    $('body').on('click', '#prevPage', function () {
+        $.ajax({
+            url: '/liked/getPrevPage',
+            enctype: 'multipart/form-data',
+            success: function (data) {
+                $('#videoPage').html(data);
+                $('html').animate({scrollTop: 0}, 0);
+                removeButtonPage();
+            }
+        });
+    });
+
+    removeButtonPage();
 });
+
+function removeButtonPage() {
+    var like = Cookies.get('like');
+    if(parseInt(JSON.parse(like)['shown']) <= 48){
+        $('.container.button #prevPage').css('display','none');
+    }
+    if(parseInt(JSON.parse(like)['count']) <= parseInt(JSON.parse(like)['shown'])){
+        console.log(parseInt(JSON.parse(like)['count']));
+        $('.container.button #nextPage').css('display','none');
+    }
+}
