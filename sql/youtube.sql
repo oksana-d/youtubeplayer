@@ -24,11 +24,11 @@ CREATE TABLE IF NOT EXISTS `like` (
   PRIMARY KEY (`idLike`),
   KEY `user` (`idUser`),
   KEY `idVideo` (`idVideo`),
-  CONSTRAINT `idUser` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`),
-  CONSTRAINT `idVideo` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+  CONSTRAINT `idUser` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idVideo` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.like: ~18 rows (приблизительно)
+-- Дамп данных таблицы youtube.like: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `like` DISABLE KEYS */;
 /*!40000 ALTER TABLE `like` ENABLE KEYS */;
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `page` (
   PRIMARY KEY (`idPage`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.page: ~1 rows (приблизительно)
+-- Дамп данных таблицы youtube.page: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
 INSERT INTO `page` (`idPage`, `nextPageToken`, `prevPageToken`) VALUES
 	(1, 'CDAQAA', NULL);
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `query` (
   `queryText` text NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idQuery`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.query: ~1 rows (приблизительно)
+-- Дамп данных таблицы youtube.query: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `query` DISABLE KEYS */;
 /*!40000 ALTER TABLE `query` ENABLE KEYS */;
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   PRIMARY KEY (`idVideo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.video: ~54 rows (приблизительно)
+-- Дамп данных таблицы youtube.video: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 
@@ -98,12 +98,12 @@ CREATE TABLE IF NOT EXISTS `videoQuery` (
   KEY `query` (`query`),
   KEY `page` (`page`),
   KEY `video` (`video`),
-  CONSTRAINT `page` FOREIGN KEY (`page`) REFERENCES `page` (`idPage`),
-  CONSTRAINT `query` FOREIGN KEY (`query`) REFERENCES `query` (`idQuery`),
-  CONSTRAINT `video` FOREIGN KEY (`video`) REFERENCES `video` (`idVideo`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+  CONSTRAINT `page` FOREIGN KEY (`page`) REFERENCES `page` (`idPage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `query` FOREIGN KEY (`query`) REFERENCES `query` (`idQuery`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `video` FOREIGN KEY (`video`) REFERENCES `video` (`idVideo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы youtube.videoQuery: ~48 rows (приблизительно)
+-- Дамп данных таблицы youtube.videoQuery: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `videoQuery` DISABLE KEYS */;
 /*!40000 ALTER TABLE `videoQuery` ENABLE KEYS */;
 
