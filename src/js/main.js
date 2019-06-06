@@ -200,6 +200,7 @@ $(document).ready(function () {
             data: data,
             success: function (data) {
                 $('#videoPage').html(data);
+                removeButtonPage();
             }
         });
     });
@@ -209,14 +210,6 @@ $(document).ready(function () {
             url: '/liked/getNextPage',
             enctype: 'multipart/form-data',
             success: function (data) {
-                if(data == 'Вы еще ничего не добавили в список понравившихся'){
-                    $('#videoPage').css('text-align','center');
-                    $('#videoPage').css('color','white');
-                }
-                else{
-                    $('#videoPage').css('text-align','left');
-                    $('#videoPage').css('color','black');
-                }
                 $('#videoPage').html(data);
                 $('html').animate({scrollTop: 0}, 0);
                 removeButtonPage();

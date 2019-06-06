@@ -132,4 +132,17 @@ class ModelMain extends Model
         $execute_query = $conn->query("delete from `like` where `idUser`=? and `idVideo`=?", [$idUser, $idVideo]);
         return $execute_query;
     }
+
+    public function getDate($query){
+        $conn = DB::connect();
+        $execute_query = $conn->query("select createdAt from query where queryText=?", [$query])[0];
+        return $execute_query;
+    }
+
+    public function updateData($query){
+        $idQuery = $this->getQuery($query)['idQuery'];
+        $date = date("Y-m-d H:i:s");
+        $conn = DB::connect();
+        $conn->query("UPDATE `query` SET `createdAt`=? WHERE  `idQuery`=?", [$date, $idQuery]);
+    }
 }

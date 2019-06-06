@@ -31,19 +31,22 @@ class ControllerMain extends Controller
             }
             else{//если такой запрос уже есть в бд, то выводим первую страницу из бд
                 $videosDate = $this->model->getDataOnQuery($_POST['searchInput']);
-                if(isset($_COOKIE['page'])){
+                if (isset($_COOKIE['page'])) {
                     unset($_COOKIE['page']);
                 }
-                setcookie("page", serialize($this->model->getPage($videosDate[0]['page'])) ,0, '/');
-                if(isset($_COOKIE['query'])){
+                setcookie("page", serialize($this->model->getPage($videosDate[0]['page'])), 0, '/');
+                if (isset($_COOKIE['query'])) {
                     unset($_COOKIE['query']);
                 }
-                setcookie("query", serialize($this->model->getQuery($videosDate[0]['query'])) ,0, '/');
+                setcookie("query", serialize($this->model->getQuery($videosDate[0]['query'])), 0, '/');
+
+                $videosDate = $this->getLike($videosDate);
+                if (isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
+                    $this->view->ajaxGenerate('AuthVideoPage.php', ['videos' => $videosDate]);
+                } else {
+                    $this->view->ajaxGenerate('VideoPage.php', ['videos' => $videosDate]);
+                }
             }
-            $videosDate = $this->getLike($videosDate);
-            if(isset($_SESSION['isAuth']) && $_SESSION['isAuth'] == 'true') {
-                $this->view->ajaxGenerate('AuthVideoPage.php',['videos' => $videosDate]);
-            } else $this->view->ajaxGenerate('VideoPage.php',['videos' => $videosDate]);
         }
     }
 
@@ -222,5 +225,15 @@ class ControllerMain extends Controller
             }
         }
         return $like;
+    }
+
+    public function getTime(){
+        $this->model = new ModelMain();
+        $date = date("Y-m-d H:i:s");
+        $queryDate = $this->model->getDate(unserialize($_COOKIE['query'])['queryText'])['createdAt'];
+        $result = (strtotime($date) - strtotime($queryDate))/(60*60*24);
+        if($result > 1){
+            return false;
+        } else return true;
     }
 }
