@@ -9,7 +9,7 @@ class YouTubeVideo
 {
 
     public $id;
-    private $apiKey = 'AIzaSyCnRk-TqMSWECmNWEjMJm1CmL7Lnozh5EY';
+    private $apiKey = 'ВАШ КЛЮЧ';
     private $youtube;
 
     public function __construct()
